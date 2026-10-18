@@ -65,34 +65,47 @@
             </search>
         </field>
     </record>
+
     <record id="hospital_doctor_view_kanban" model="ir.ui.view">
         <field name="name">hospital.doctor.kanban</field>
         <field name="model">hr.hospital.doctor</field>
         <field name="arch" type="xml">
             <kanban default_group_by="category_id" quick_create="0" records_draggable="0"
                     group_create="0" group_delete="0" group_edit="0">
-                <!-- active потрібне для умов у меню картки. -->
+                <!-- active оголошено в arch, бо menu використовує record.active.raw_value. -->
                 <field name="active"/>
+                <field name="intern_names"/>
                 <templates>
                     <t t-name="card">
-                        <field name="name" class="fw-bold fs-5"/>
-                        <field name="category_id"/>
-                        <field name="supervisor_doctor_id"/>
-                        <footer>
+                        <div class="d-flex flex-column gap-1">
+                            <field name="name" class="fw-bold fs-5"/>
+                            <div>
+                                <span class="text-muted">Кваліфікація: </span>
+                                <field name="category_id"/>
+                            </div>
+                            <div t-if="record.intern_names.raw_value">
+                                <span class="text-muted">Інтерни: </span>
+                                <field name="intern_names"/>
+                            </div>
+                        </div>
+                        <footer class="mt-2">
                             <button name="action_quick_visit" type="object"
                                     string="Запис до лікаря" class="btn btn-primary btn-sm"/>
                         </footer>
                     </t>
                     <t t-name="menu">
                         <a type="open" role="menuitem" class="dropdown-item">Відкрити</a>
-                        <a t-if="record.active.raw_value" type="archive" role="menuitem" class="dropdown-item">Архівувати</a>
-                        <a t-if="!record.active.raw_value" type="unarchive" role="menuitem" class="dropdown-item">Розархівувати</a>
+                        <a t-if="record.active.raw_value" type="archive"
+                           role="menuitem" class="dropdown-item">Архівувати</a>
+                        <a t-if="!record.active.raw_value" type="unarchive"
+                           role="menuitem" class="dropdown-item">Розархівувати</a>
                         <a type="delete" role="menuitem" class="dropdown-item">Видалити</a>
                     </t>
                 </templates>
             </kanban>
         </field>
     </record>
+
     <record id="hr_hospital_doctor_action" model="ir.actions.act_window">
         <field name="name">Doctors</field>
         <field name="res_model">hr.hospital.doctor</field>

@@ -5,8 +5,8 @@
     'website': 'https://odoo.school/',
     'category': 'Customizations',
     'license': 'LGPL-3',
-    'version': '19.0.4.0.0',
-    "depends": ["base", "mail"],
+    'version': '19.0.5.0.0',
+    "depends": ["base", "mail", "web"],
     "data": [
         "security/ir.model.access.csv",
         "data/hr_hospital_disease_data.xml",
@@ -21,6 +21,8 @@
         "wizard/mass_reassign_doctor_wizard_views.xml",
         "wizard/visit_report_wizard_views.xml",
         "wizard/disease_month_report_wizard_views.xml",
+        "report/hospital_doctor_report_templates.xml",
+        "report/hospital_doctor_reports.xml",
         "views/hr_hospital_menu.xml",
     ],
     "demo": [

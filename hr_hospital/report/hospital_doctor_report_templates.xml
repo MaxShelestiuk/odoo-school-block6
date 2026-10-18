@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hospital_doctor_report_layout">
+        <t t-set="company" t-value="res_company"/>
+
+        <div class="header">
+            <div class="row align-items-start">
+                <div class="col-3">
+                    <img t-if="company.logo"
+                         t-att-src="image_data_uri(company.logo)"
+                         alt="Company logo"
+                         style="max-height: 55px; max-width: 180px;"/>
+                </div>
+                <div class="col-9">
+                    <div class="fw-bold fs-5" t-out="company.name"/>
+                    <div t-if="company.street">
+                        <span t-out="company.street"/>
+                        <t t-if="company.street2">, <span t-out="company.street2"/></t>
+                    </div>
+                    <div t-if="company.zip or company.city">
+                        <span t-if="company.zip" t-out="company.zip"/>
+                        <t t-if="company.zip and company.city"> </t>
+                        <span t-if="company.city" t-out="company.city"/>
+                    </div>
+                    <div t-if="company.country_id">
+                        <span t-out="company.country_id.name"/>
+                    </div>
+                    <div t-if="company.phone">
+                        Тел.: <span t-out="company.phone"/>
+                    </div>
+                    <div t-if="company.email">
+                        Email: <span t-out="company.email"/>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+
+        <div class="article"
+             t-att-data-oe-model="doctor and doctor._name"
+             t-att-data-oe-id="doctor and doctor.id"
+             t-att-data-oe-lang="doctor and doctor.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+
+        <div class="footer">
+            <hr/>
+            <div class="row small text-muted">
+                <div class="col-8">
+                    Надруковано:
+                    <span t-out="context_timestamp(print_datetime).strftime('%d.%m.%Y %H:%M')"/>
+                </div>
+                <div class="col-4 text-end">
+                    <span t-out="company.city or ''"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_hospital_doctor">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doctor">
+                <t t-call="hr_hospital.hospital_doctor_report_layout">
+                    <!-- Для кожного лікаря рендеримо окремий div.page і додаємо
+                         page-break-after до всіх записів, крім останнього. Розглядав
+                         page-break-before для наступного запису, але обраний варіант
+                         простіше уникає випадкової порожньої першої сторінки. -->
+                    <div class="page"
+                         t-att-style="'page-break-after: always;' if not doctor_last else ''">
+                        <h2 class="mb-1" t-out="doctor.name"/>
+                        <p class="mb-4">
+                            <strong>Спеціальність:</strong>
+                            <span t-out="doctor.category_id.display_name or '—'"/>
+                        </p>
+
+                        <style>
+                            .visit-planned td {
+                                background-color: #fff3cd !important;
+                                -webkit-print-color-adjust: exact;
+                            }
+                            .visit-done td {
+                                background-color: #d1e7dd !important;
+                                -webkit-print-color-adjust: exact;
+                            }
+                            .visit-cancelled td {
+                                background-color: #f8d7da !important;
+                                -webkit-print-color-adjust: exact;
+                            }
+                        </style>
+
+                        <h3 class="h5">Історія візитів</h3>
+                        <t t-set="doctor_visits" t-value="visits_by_doctor.get(doctor.id)"/>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Дата і час</th>
+                                    <th>Пацієнт</th>
+                                    <th>Хвороба</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doctor_visits" t-as="visit"
+                                    t-att-class="'visit-planned' if visit.state == 'planned' else ('visit-done' if visit.state == 'done' else ('visit-cancelled' if visit.state == 'cancelled' else ''))">
+                                    <td>
+                                        <span t-if="visit.visit_datetime"
+                                              t-field="visit.visit_datetime"/>
+                                        <span t-else="">—</span>
+                                    </td>
+                                    <td t-out="visit.patient_id.display_name or '—'"/>
+                                    <td t-out="visit.disease_id.display_name or '—'"/>
+                                    <td>
+                                        <span t-field="visit.state"/>
+                                    </td>
+                                </tr>
+                                <tr t-if="not doctor_visits">
+                                    <td colspan="4" class="text-center text-muted">
+                                        Візитів немає
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="h5 mt-4">Пацієнти лікаря</h3>
+                        <t t-set="doctor_patients" t-value="patients_by_doctor.get(doctor.id)"/>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ПІБ</th>
+                                    <th>Стать</th>
+                                    <th>Дата народження</th>
+                                    <th>Телефон</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doctor_patients" t-as="patient">
+                                    <td t-out="patient.display_name"/>
+                                    <td>
+                                        <span t-if="patient.gender" t-field="patient.gender"/>
+                                        <span t-else="">—</span>
+                                    </td>
+                                    <td>
+                                        <span t-if="patient.birth_date"
+                                              t-field="patient.birth_date"/>
+                                        <span t-else="">—</span>
+                                    </td>
+                                    <td t-out="patient.phone or '—'"/>
+                                </tr>
+                                <tr t-if="not doctor_patients">
+                                    <td colspan="4" class="text-center text-muted">
+                                        Пацієнтів немає
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

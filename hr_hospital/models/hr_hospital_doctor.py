@@ -53,6 +53,16 @@ class HrHospitalDoctor(models.Model):
         'hr.hospital.doctor', 'supervisor_doctor_id', string='Інтерни',
         domain=[('is_intern', '=', True)],
     )
+    intern_names = fields.Char(
+        string='Імена інтернів',
+        compute='_compute_intern_names',
+    )
+
+    @api.depends('intern_ids.name', 'intern_ids.is_intern')
+    def _compute_intern_names(self):
+        for doctor in self:
+            interns = doctor.intern_ids.filtered('is_intern')
+            doctor.intern_names = ', '.join(interns.mapped('name'))
 
     @api.model
     def _read_group_category_id(self, categories, domain):
