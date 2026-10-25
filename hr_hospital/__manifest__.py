@@ -1,5 +1,8 @@
 {
     'name': 'Hospital Automation',
+    'description': 'Hospital records, visits, intern supervision, reporting and '
+                   'role-based access with Ukrainian localization for Odoo 19.',
+    'images': ['static/description/banner.png'],
     'summary': 'Manage records of doctors, patients, diseases, and visits',
     'author': 'Maksym Shelestiuk',
     'website': 'https://odoo.school/',
