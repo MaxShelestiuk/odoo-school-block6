@@ -21,19 +21,15 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="planned,done,cancelled"
-                           options="{'clickable': True}" readonly="state == 'done'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,done,cancelled" options="{'clickable': True}" readonly="state == 'done'"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_same_disease_visits" type="object"
-                                class="oe_stat_button" icon="fa-stethoscope"
-                                invisible="not disease_id">
+                        <button name="action_same_disease_visits" type="object" class="oe_stat_button" icon="fa-stethoscope" invisible="not disease_id">
                             <field name="same_disease_visit_count" widget="statinfo"/>
                         </button>
                     </div>
-                    <widget name="web_ribbon" title="Архівний" invisible="active"/>
+                    <widget name="web_ribbon" title="Archived" invisible="active"/>
                     <field name="active" invisible="1"/>
                     <group>
                         <group>
@@ -48,7 +44,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Епікриз">
+                        <page string="Clinical Summary">
                             <field name="summary"/>
                         </page>
                     </notebook>
@@ -65,18 +61,18 @@
             <search>
                 <field name="patient_id"/><field name="doctor_id"/>
                 <field name="disease_id" operator="child_of"/>
-                <filter name="archived" string="Архівні" domain="[('active', '=', False)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
                 <separator/>
-                <filter name="current_year" string="Поточний рік" date="visit_datetime" default_period="year"/>
+                <filter name="current_year" string="Current Year" date="visit_datetime" default_period="year"/>
                 <group>
-                    <filter name="group_state" string="Статус" context="{'group_by': 'state'}"/>
-                    <filter name="group_disease" string="Хвороба" context="{'group_by': 'disease_id'}"/>
-                    <filter name="group_doctor" string="Лікар" context="{'group_by': 'doctor_id'}"/>
-                    <filter name="group_month" string="Місяць" context="{'group_by': 'visit_datetime:month'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_disease" string="Disease" context="{'group_by': 'disease_id'}"/>
+                    <filter name="group_doctor" string="Doctor" context="{'group_by': 'doctor_id'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'visit_datetime:month'}"/>
                 </group>
                 <searchpanel>
-                    <field name="doctor_id" string="Лікар" enable_counters="1"/>
-                    <field name="disease_id" string="Хвороба" hierarchize="1" enable_counters="1"/>
+                    <field name="doctor_id" string="Doctor" enable_counters="1"/>
+                    <field name="disease_id" string="Disease" hierarchize="1" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>
@@ -85,8 +81,7 @@
         <field name="name">hospital.visit.calendar</field>
         <field name="model">hr.hospital.patient.visit</field>
         <field name="arch" type="xml">
-            <calendar date_start="visit_datetime" color="doctor_id" mode="month"
-                      quick_create="0" event_open_popup="1">
+            <calendar date_start="visit_datetime" color="doctor_id" mode="month" quick_create="0" event_open_popup="1">
                 <field name="patient_id"/><field name="doctor_id" filters="1"/>
                 <field name="disease_id"/><field name="state"/>
             </calendar>
@@ -96,7 +91,7 @@
         <field name="name">hospital.visit.pivot</field>
         <field name="model">hr.hospital.patient.visit</field>
         <field name="arch" type="xml">
-            <pivot string="Візити за лікарями та статусами" display_quantity="1">
+            <pivot string="Visits by Doctor and Status" display_quantity="1">
                 <field name="doctor_id" type="row"/>
                 <field name="visit_datetime" type="row" interval="month"/>
                 <field name="state" type="col"/>
@@ -107,14 +102,14 @@
         <field name="name">hospital.visit.graph</field>
         <field name="model">hr.hospital.patient.visit</field>
         <field name="arch" type="xml">
-            <graph string="Візити за місяцями і хворобами" type="bar" stacked="1">
+            <graph string="Visits by Month and Disease" type="bar" stacked="1">
                 <field name="visit_datetime" interval="month"/>
                 <field name="disease_id"/>
             </graph>
         </field>
     </record>
     <record id="hospital_visit_analysis_action" model="ir.actions.act_window">
-        <field name="name">Аналіз візитів за поточний рік</field>
+        <field name="name">Visit Analysis for the Current Year</field>
         <field name="res_model">hr.hospital.patient.visit</field>
         <field name="view_mode">pivot,graph,list,form</field>
         <field name="context">{'search_default_current_year': 1}</field>

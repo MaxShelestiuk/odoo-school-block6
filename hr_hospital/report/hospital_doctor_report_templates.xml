@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="hospital_doctor_report_layout">
         <t t-set="company" t-value="res_company"/>
@@ -6,10 +5,7 @@
         <div class="header">
             <div class="row align-items-start">
                 <div class="col-3">
-                    <img t-if="company.logo"
-                         t-att-src="image_data_uri(company.logo)"
-                         alt="Company logo"
-                         style="max-height: 55px; max-width: 180px;"/>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Company logo" style="max-height: 55px; max-width: 180px;"/>
                 </div>
                 <div class="col-9">
                     <div class="fw-bold fs-5" t-out="company.name"/>
@@ -26,7 +22,7 @@
                         <span t-out="company.country_id.name"/>
                     </div>
                     <div t-if="company.phone">
-                        Тел.: <span t-out="company.phone"/>
+                        Phone: <span t-out="company.phone"/>
                     </div>
                     <div t-if="company.email">
                         Email: <span t-out="company.email"/>
@@ -36,10 +32,7 @@
             <hr/>
         </div>
 
-        <div class="article"
-             t-att-data-oe-model="doctor and doctor._name"
-             t-att-data-oe-id="doctor and doctor.id"
-             t-att-data-oe-lang="doctor and doctor.env.context.get('lang')">
+        <div class="article" t-att-data-oe-model="doctor and doctor._name" t-att-data-oe-id="doctor and doctor.id" t-att-data-oe-lang="doctor and doctor.env.context.get('lang')">
             <t t-out="0"/>
         </div>
 
@@ -47,7 +40,7 @@
             <hr/>
             <div class="row small text-muted">
                 <div class="col-8">
-                    Надруковано:
+                    Printed:
                     <span t-out="context_timestamp(print_datetime).strftime('%d.%m.%Y %H:%M')"/>
                 </div>
                 <div class="col-4 text-end">
@@ -65,11 +58,10 @@
                          page-break-after до всіх записів, крім останнього. Розглядав
                          page-break-before для наступного запису, але обраний варіант
                          простіше уникає випадкової порожньої першої сторінки. -->
-                    <div class="page"
-                         t-att-style="'page-break-after: always;' if not doctor_last else ''">
+                    <div class="page" t-att-style="'page-break-after: always;' if not doctor_last else ''">
                         <h2 class="mb-1" t-out="doctor.name"/>
                         <p class="mb-4">
-                            <strong>Спеціальність:</strong>
+                            <strong>Specialty:</strong>
                             <span t-out="doctor.category_id.display_name or '—'"/>
                         </p>
 
@@ -88,23 +80,21 @@
                             }
                         </style>
 
-                        <h3 class="h5">Історія візитів</h3>
+                        <h3 class="h5">Visit History</h3>
                         <t t-set="doctor_visits" t-value="visits_by_doctor.get(doctor.id)"/>
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Дата і час</th>
-                                    <th>Пацієнт</th>
-                                    <th>Хвороба</th>
-                                    <th>Статус</th>
+                                    <th>Date and Time</th>
+                                    <th>Patient</th>
+                                    <th>Disease</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr t-foreach="doctor_visits" t-as="visit"
-                                    t-att-class="'visit-planned' if visit.state == 'planned' else ('visit-done' if visit.state == 'done' else ('visit-cancelled' if visit.state == 'cancelled' else ''))">
+                                <tr t-foreach="doctor_visits" t-as="visit" t-att-class="'visit-planned' if visit.state == 'planned' else ('visit-done' if visit.state == 'done' else ('visit-cancelled' if visit.state == 'cancelled' else ''))">
                                     <td>
-                                        <span t-if="visit.visit_datetime"
-                                              t-field="visit.visit_datetime"/>
+                                        <span t-if="visit.visit_datetime" t-field="visit.visit_datetime"/>
                                         <span t-else="">—</span>
                                     </td>
                                     <td t-out="visit.patient_id.display_name or '—'"/>
@@ -115,21 +105,21 @@
                                 </tr>
                                 <tr t-if="not doctor_visits">
                                     <td colspan="4" class="text-center text-muted">
-                                        Візитів немає
+                                        No visits
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <h3 class="h5 mt-4">Пацієнти лікаря</h3>
+                        <h3 class="h5 mt-4">Doctor's Patients</h3>
                         <t t-set="doctor_patients" t-value="patients_by_doctor.get(doctor.id)"/>
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ПІБ</th>
-                                    <th>Стать</th>
-                                    <th>Дата народження</th>
-                                    <th>Телефон</th>
+                                    <th>Full Name</th>
+                                    <th>Gender</th>
+                                    <th>Birth Date</th>
+                                    <th>Phone</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -140,15 +130,14 @@
                                         <span t-else="">—</span>
                                     </td>
                                     <td>
-                                        <span t-if="patient.birth_date"
-                                              t-field="patient.birth_date"/>
+                                        <span t-if="patient.birth_date" t-field="patient.birth_date"/>
                                         <span t-else="">—</span>
                                     </td>
                                     <td t-out="patient.phone or '—'"/>
                                 </tr>
                                 <tr t-if="not doctor_patients">
                                     <td colspan="4" class="text-center text-muted">
-                                        Пацієнтів немає
+                                        No patients
                                     </td>
                                 </tr>
                             </tbody>

@@ -1,26 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="disease_demo_infectious" model="hr.hospital.disease">
-        <field name="name">Інфекційні</field>
+        <field name="name">Infectious Diseases</field>
     </record>
 
     <record id="disease_demo_viral" model="hr.hospital.disease">
-        <field name="name">Вірусні</field>
+        <field name="name">Viral Diseases</field>
         <field name="parent_id" ref="disease_demo_infectious"/>
     </record>
 
     <record id="disease_demo_flu" model="hr.hospital.disease">
-        <field name="name">Грип</field>
+        <field name="name">Influenza</field>
         <field name="parent_id" ref="disease_demo_viral"/>
     </record>
 
     <record id="disease_demo_bacterial" model="hr.hospital.disease">
-        <field name="name">Бактеріальні</field>
+        <field name="name">Bacterial Diseases</field>
         <field name="parent_id" ref="disease_demo_infectious"/>
     </record>
 
     <record id="disease_demo_scarlet_fever" model="hr.hospital.disease">
-        <field name="name">Скарлатина</field>
+        <field name="name">Scarlet Fever</field>
         <field name="parent_id" ref="disease_demo_bacterial"/>
     </record>
 </odoo>

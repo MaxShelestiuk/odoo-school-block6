@@ -1,43 +1,16 @@
 <odoo>
-    <menuitem id="hr_hospital_main_menu" groups="hr_hospital.group_hospital_patient"
-              name="Hospital"
-              sequence="300"/>
+    <menuitem id="hr_hospital_main_menu" groups="hr_hospital.group_hospital_patient" name="Hospital" sequence="300"/>
 
-    <menuitem id="hr_hospital_patient_menu"
-              name="Patients"
-              parent="hr_hospital_main_menu"
-              action="hr_hospital_patient_action"
-              sequence="100"/>
+    <menuitem id="hr_hospital_patient_menu" name="Patients" parent="hr_hospital_main_menu" action="hr_hospital_patient_action" sequence="100"/>
 
-    <menuitem id="hr_hospital_doctor_menu"
-              name="Doctors"
-              parent="hr_hospital_main_menu"
-              action="hr_hospital_doctor_action"
-              sequence="200"/>
+    <menuitem id="hr_hospital_doctor_menu" name="Doctors" parent="hr_hospital_main_menu" action="hr_hospital_doctor_action" sequence="200"/>
 
-    <menuitem id="hospital_doctor_category_menu"
-              name="Кваліфікації"
-              parent="hr_hospital_main_menu"
-              action="hospital_doctor_category_action"
-              sequence="300"/>
+    <menuitem id="hospital_doctor_category_menu" name="Qualifications" parent="hr_hospital_main_menu" action="hospital_doctor_category_action" sequence="300"/>
 
-    <menuitem id="hospital_doctor_history_menu"
-              name="Історія персональних лікарів"
-              parent="hr_hospital_main_menu"
-              action="hospital_doctor_history_action"
-              sequence="400"/>
+    <menuitem id="hospital_doctor_history_menu" name="Personal Doctor History" parent="hr_hospital_main_menu" action="hospital_doctor_history_action" sequence="400"/>
 
-    <menuitem id="hr_hospital_patient_visit_menu"
-              name="Візити пацієнтів"
-              parent="hr_hospital_main_menu"
-              action="hr_hospital_patient_visit_action"
-              sequence="250"/>
+    <menuitem id="hr_hospital_patient_visit_menu" name="Patient Visits" parent="hr_hospital_main_menu" action="hr_hospital_patient_visit_action" sequence="250"/>
 
-    <menuitem id="hr_hospital_disease_menu"
-              name="Хвороби"
-              parent="hr_hospital_main_menu"
-              action="hr_hospital_disease_action"
-              sequence="260"/>
-    <menuitem id="hospital_visit_analysis_menu" name="Аналіз візитів"
-              parent="hr_hospital_main_menu" action="hospital_visit_analysis_action" sequence="270"/>
+    <menuitem id="hr_hospital_disease_menu" name="Diseases" parent="hr_hospital_main_menu" action="hr_hospital_disease_action" sequence="260"/>
+    <menuitem id="hospital_visit_analysis_menu" name="Visit Analysis" parent="hr_hospital_main_menu" action="hospital_visit_analysis_action" sequence="270"/>
 </odoo>

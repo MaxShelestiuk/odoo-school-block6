@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="disease_month_report_wizard_view_form" model="ir.ui.view">
         <field name="name">hospital.disease.month.report.wizard.form</field>
         <field name="model">hospital.disease.month.report.wizard</field>
         <field name="arch" type="xml">
-            <form string="Звіт по хворобах за місяць">
+            <form string="Monthly Disease Report">
                 <group>
                     <field name="doctor_ids" widget="many2many_tags"/>
                     <field name="disease_ids" widget="many2many_tags"/>
                     <field name="date_from"/><field name="date_to"/>
                 </group>
-                <div class="text-muted">Порожні поля не обмежують звіт. Хвороби включають нащадків.</div>
+                <div class="text-muted">Empty fields do not restrict the report. Diseases include descendants.</div>
                 <footer>
-                    <button name="action_show_visits" type="object" string="Показати візити" class="btn-primary"/>
-                    <button special="cancel" string="Скасувати"/>
+                    <button name="action_show_visits" type="object" string="Show Visits" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
                 </footer>
             </form>
         </field>
     </record>
     <record id="disease_month_report_wizard_action" model="ir.actions.act_window">
-        <field name="name">Звіт по хворобах за місяць</field>
+        <field name="name">Monthly Disease Report</field>
         <field name="res_model">hospital.disease.month.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

@@ -2,11 +2,13 @@ from odoo import api, fields, models
 
 
 class ReportHospitalDoctor(models.AbstractModel):
+    """Manage hospital doctor pdf report records and their business rules."""
     _name = 'report.hr_hospital.report_hospital_doctor'
     _description = 'Hospital Doctor PDF Report'
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        """Collect accessible doctors and their patients for the PDF report."""
         doctors = self.env['hr.hospital.doctor'].browse(docids).exists()
         visit_model = self.env['hr.hospital.patient.visit'].with_context(
             active_test=False,

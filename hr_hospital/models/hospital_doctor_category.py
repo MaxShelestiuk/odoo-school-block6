@@ -2,20 +2,22 @@ from odoo import fields, models
 
 
 class HospitalDoctorCategory(models.Model):
-    _name = 'hospital.doctor.category'
-    _description = 'Doctor Qualification'
-    _order = 'sequence, name, id'
+    """Manage doctor qualification records and their business rules."""
 
-    name = fields.Char(string='Назва', required=True)
-    sequence = fields.Integer(string='Послідовність', default=10)
-    is_intern = fields.Boolean(string='Категорія інтерна')
+    _name = "hospital.doctor.category"
+    _description = "Doctor Qualification"
+    _order = "sequence, name, id"
+
+    name = fields.Char(string="Name", required=True, translate=True)
+    sequence = fields.Integer(string="Sequence", default=10)
+    is_intern = fields.Boolean(string="Intern Category")
     doctor_ids = fields.One2many(
-        comodel_name='hr.hospital.doctor',
-        inverse_name='category_id',
-        string='Лікарі',
+        comodel_name="hr.hospital.doctor",
+        inverse_name="category_id",
+        string="Doctors",
     )
 
     _name_unique = models.Constraint(
-        'UNIQUE(name)',
-        'Назва кваліфікації вже існує!',
+        "UNIQUE(name)",
+        "This qualification name already exists!",
     )

@@ -5,7 +5,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
-                        <field name="user_id"/>
+                <field name="user_id"/>
                         <field name="phone" widget="phone"/>
             </list>
         </field>
@@ -20,8 +20,7 @@
                      (або default_doctor_id у канбані лікаря) у context.
                      Альтернатива — окрема XML action з context; метод зручніший для
                      підстановки також персонального лікаря без дублювання дій. -->
-                <header><button name="action_quick_visit" type="object"
-                                string="Запис до лікаря" class="btn-primary"/></header>
+                <header><button name="action_quick_visit" type="object" string="Book a Visit" class="btn-primary"/></header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_visits" type="object" class="oe_stat_button" icon="fa-history">
@@ -30,24 +29,25 @@
                     </div>
                     <group>
                         <field name="name"/>
+                        <field name="user_id"/>
                         <field name="phone" widget="phone"/>
                         <field name="personal_doctor_id"/>
                         <field name="insurance_policy_number"/>
                     </group>
-                    <group string="Медичні дані">
+                    <group string="Medical Information">
                         <field name="blood_group"/>
                         <field name="gender"/>
                         <field name="birth_date"/>
                         <field name="age"/>
                     </group>
                     <notebook>
-                        <page string="Візити" name="visits">
+                        <page string="Visits" name="visits">
                             <field name="visit_ids" readonly="1">
                                 <list><field name="visit_datetime"/><field name="doctor_id"/>
                                     <field name="disease_id"/><field name="state"/></list>
                             </field>
                         </page>
-                        <page string="Історія персональних лікарів">
+                        <page string="Personal Doctor History">
                             <field name="doctor_history_ids" readonly="1">
                                 <list>
                                     <field name="doctor_id"/>
@@ -68,8 +68,7 @@
         <field name="model">hr.hospital.patient</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" string="ПІБ або телефон"
-                       filter_domain="['|', ('name', 'ilike', self), ('phone', 'ilike', self)]"/>
+                <field name="name" string="Name or Phone" filter_domain="['|', ('name', 'ilike', self), ('phone', 'ilike', self)]"/>
                 <field name="phone"/>
             </search>
         </field>

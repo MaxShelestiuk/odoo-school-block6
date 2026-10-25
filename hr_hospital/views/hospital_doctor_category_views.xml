@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="hospital_doctor_category_view_list" model="ir.ui.view">
         <field name="name">hospital.doctor.category.list</field>
@@ -22,7 +21,7 @@
                         <field name="sequence"/>
                     </group>
 
-                    <group string="Лікарі цієї кваліфікації">
+                    <group string="Doctors with This Qualification">
                         <field name="doctor_ids" readonly="1">
                             <list>
                                 <field name="name"/>
@@ -35,7 +34,7 @@
     </record>
 
     <record id="hospital_doctor_category_action" model="ir.actions.act_window">
-        <field name="name">Кваліфікації лікарів</field>
+        <field name="name">Doctor Qualifications</field>
         <field name="res_model">hospital.doctor.category</field>
         <field name="view_mode">list,form</field>
     </record>

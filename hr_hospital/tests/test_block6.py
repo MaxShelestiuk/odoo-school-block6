@@ -29,7 +29,9 @@ class TestBlock6(TransactionCase):
             'supervisor_doctor_id': cls.doctor.id,
             'category_id': cls.env.ref('hr_hospital.doctor_category_intern').id,
         })
-        cls.other = cls.env['hr.hospital.doctor'].create({'name': 'Other'})
+        cls.other = cls.env['hr.hospital.doctor'].create({
+            'name': 'Other', 'supervisor_doctor_id': cls.doctor.id,
+        })
         cls.patient = cls.env['hr.hospital.patient'].create({
             'name': 'Patient', 'user_id': cls.users['patient'].id,
         })
@@ -134,3 +136,20 @@ class TestBlock6(TransactionCase):
                 visit.write(vals)
         visit.write({'summary': '<p>Follow-up note</p>'})
         self.assertIn('Follow-up', visit.summary)
+
+    def test_ukrainian_round_trip(self):
+        """Load the exported catalog and preserve English field/data sources."""
+        self.env['res.lang']._activate_lang('uk_UA')
+        self.env['ir.module.module'].search([
+            ('name', '=', 'hr_hospital'),
+        ])._update_translations(['uk_UA'], overwrite=True)
+        disease = self.env.ref('hr_hospital.hr_hospital_disease_laziness')
+        self.assertEqual(disease.with_context(lang='uk_UA').name, 'Лінь')
+        self.assertEqual(disease.with_context(lang='en_US').name, 'Laziness')
+        self.assertEqual(disease.with_context(lang='uk_UA').complete_name, 'Лінь')
+        self.assertEqual(disease.with_context(lang='en_US').complete_name, 'Laziness')
+        patient = self.env['hr.hospital.patient']
+        self.assertEqual(patient.with_context(lang='uk_UA').fields_get(
+            ['user_id'])['user_id']['string'], 'Користувач системи')
+        self.assertEqual(patient.with_context(lang='en_US').fields_get(
+            ['user_id'])['user_id']['string'], 'System User')

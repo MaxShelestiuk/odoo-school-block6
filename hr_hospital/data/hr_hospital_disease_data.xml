@@ -1,13 +1,13 @@
 <odoo>
     <record id="hr_hospital_disease_laziness" model="hr.hospital.disease">
-        <field name="name">Лінь</field>
+        <field name="name">Laziness</field>
     </record>
 
     <record id="hr_hospital_disease_tiktok_addiction" model="hr.hospital.disease">
-        <field name="name">ТікТок залежність</field>
+        <field name="name">TikTok Addiction</field>
     </record>
 
     <record id="hr_hospital_disease_procrastination" model="hr.hospital.disease">
-        <field name="name">Хронічне відкладання на потім</field>
+        <field name="name">Chronic Procrastination</field>
     </record>
 </odoo>

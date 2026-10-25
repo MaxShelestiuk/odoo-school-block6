@@ -191,6 +191,9 @@ class TestBlock4(TransactionCase):
                         self.assertTrue(self.env[model]._fields[node.get('name')].store)
 
     def test_demo_distribution(self):
+        if not self.env.ref("hr_hospital.patient_visit_demo_7",
+                            raise_if_not_found=False):
+            self.skipTest("Demo data is not installed")
         visits = self.Visit.browse([
             self.env.ref(f'hr_hospital.patient_visit_demo_{i}').id
             for i in range(7, 13)

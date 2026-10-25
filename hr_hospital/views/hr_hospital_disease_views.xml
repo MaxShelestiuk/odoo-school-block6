@@ -4,7 +4,7 @@
         <field name="model">hr.hospital.disease</field>
         <field name="arch" type="xml">
             <list>
-                <field name="display_name" string="Хвороба"/>
+                <field name="display_name" string="Disease"/>
                 <field name="parent_id"/>
             </list>
         </field>
@@ -20,10 +20,10 @@
                         <field name="name"/>
                         <field name="parent_id"/>
                     </group>
-                    <group string="Дочірні хвороби">
+                    <group string="Child Diseases">
                         <field name="child_ids" readonly="1" nolabel="1">
                             <list>
-                                <field name="display_name" string="Хвороба"/>
+                                <field name="display_name" string="Disease"/>
                             </list>
                         </field>
                     </group>

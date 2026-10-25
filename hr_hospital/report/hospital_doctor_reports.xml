@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="paperformat_hospital_doctor_a4" model="report.paperformat">
         <field name="name">Hospital Doctor A4</field>
@@ -14,7 +13,7 @@
     </record>
 
     <record id="action_report_hospital_doctor" model="ir.actions.report">
-        <field name="name">Картка лікаря</field>
+        <field name="name">Doctor Card</field>
         <field name="model">hr.hospital.doctor</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">hr_hospital.report_hospital_doctor</field>

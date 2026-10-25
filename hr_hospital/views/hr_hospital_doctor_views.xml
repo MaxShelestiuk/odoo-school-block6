@@ -19,24 +19,22 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <widget name="web_ribbon" title="Архівний" invisible="active"/>
+                    <widget name="web_ribbon" title="Archived" invisible="active"/>
                     <field name="active" invisible="1"/>
                     <group>
                         <field name="name"/>
                         <field name="category_id"/>
                         <field name="user_id"/>
                         <field name="is_intern" readonly="1"/>
-                        <field name="supervisor_doctor_id"
-                               invisible="not is_intern and not supervisor_doctor_id"
-                               domain="[('is_intern', '=', False)]"/>
+                        <field name="supervisor_doctor_id" invisible="not is_intern and not supervisor_doctor_id" domain="[('is_intern', '=', False)]"/>
                     </group>
-                    <group string="Медичні дані">
+                    <group string="Medical Information">
                         <field name="blood_group"/>
                         <field name="gender"/>
                         <field name="birth_date"/>
                         <field name="age"/>
                     </group>
-                    <group string="Інтерни" invisible="not intern_ids">
+                    <group string="Interns" invisible="not intern_ids">
                         <field name="intern_ids" mode="kanban" readonly="1" nolabel="1">
                             <kanban>
                                 <templates><t t-name="card">
@@ -57,11 +55,11 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name"/><field name="category_id"/>
-                <filter name="mentors" string="Ментори" domain="[('intern_ids.is_intern', '=', True)]"/>
-                <filter name="interns" string="Інтерни" domain="[('is_intern', '=', True)]"/>
+                <filter name="mentors" string="Supervisors" domain="[('intern_ids.is_intern', '=', True)]"/>
+                <filter name="interns" string="Interns" domain="[('is_intern', '=', True)]"/>
                 <separator/>
-                <filter name="archived" string="Архівні" domain="[('active', '=', False)]"/>
-                <group><filter name="qualification" string="Кваліфікація" context="{'group_by': 'category_id'}"/></group>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group><filter name="qualification" string="Qualification" context="{'group_by': 'category_id'}"/></group>
             </search>
         </field>
     </record>
@@ -70,8 +68,7 @@
         <field name="name">hospital.doctor.kanban</field>
         <field name="model">hr.hospital.doctor</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="category_id" quick_create="0" records_draggable="0"
-                    group_create="0" group_delete="0" group_edit="0">
+            <kanban default_group_by="category_id" quick_create="0" records_draggable="0" group_create="0" group_delete="0" group_edit="0">
                 <!-- active оголошено в arch, бо menu використовує record.active.raw_value. -->
                 <field name="active"/>
                 <field name="intern_names"/>
@@ -80,26 +77,23 @@
                         <div class="d-flex flex-column gap-1">
                             <field name="name" class="fw-bold fs-5"/>
                             <div>
-                                <span class="text-muted">Кваліфікація: </span>
+                                <span class="text-muted">Qualification: </span>
                                 <field name="category_id"/>
                             </div>
                             <div t-if="record.intern_names.raw_value">
-                                <span class="text-muted">Інтерни: </span>
+                                <span class="text-muted">Interns: </span>
                                 <field name="intern_names"/>
                             </div>
                         </div>
                         <footer class="mt-2">
-                            <button name="action_quick_visit" type="object"
-                                    string="Запис до лікаря" class="btn btn-primary btn-sm"/>
+                            <button name="action_quick_visit" type="object" string="Book a Visit" class="btn btn-primary btn-sm"/>
                         </footer>
                     </t>
                     <t t-name="menu">
-                        <a type="open" role="menuitem" class="dropdown-item">Відкрити</a>
-                        <a t-if="record.active.raw_value" type="archive"
-                           role="menuitem" class="dropdown-item">Архівувати</a>
-                        <a t-if="!record.active.raw_value" type="unarchive"
-                           role="menuitem" class="dropdown-item">Розархівувати</a>
-                        <a type="delete" role="menuitem" class="dropdown-item">Видалити</a>
+                        <a type="open" role="menuitem" class="dropdown-item">Open</a>
+                        <a t-if="record.active.raw_value" type="archive" role="menuitem" class="dropdown-item">Archive</a>
+                        <a t-if="!record.active.raw_value" type="unarchive" role="menuitem" class="dropdown-item">Unarchive</a>
+                        <a type="delete" role="menuitem" class="dropdown-item">Delete</a>
                     </t>
                 </templates>
             </kanban>

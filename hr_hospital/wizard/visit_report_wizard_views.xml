@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="visit_report_wizard_view_form" model="ir.ui.view">
         <field name="name">visit.report.wizard.form</field>
@@ -18,21 +17,15 @@
                     </group>
                 </group>
                 <footer>
-                    <button name="action_show_visits"
-                            type="object"
-                            string="Показати візити"
-                            class="btn-primary"/>
-                    <button string="Скасувати"
-                            special="cancel"
-                            class="btn-secondary"/>
+                    <button name="action_show_visits" type="object" string="Show Visits" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
                 </footer>
             </form>
         </field>
     </record>
 
-    <record id="visit_report_wizard_patient_action"
-            model="ir.actions.act_window">
-        <field name="name">Звіт по візитах</field>
+    <record id="visit_report_wizard_patient_action" model="ir.actions.act_window">
+        <field name="name">Visit Report</field>
         <field name="res_model">visit.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="visit_report_wizard_view_form"/>
@@ -41,9 +34,8 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
-    <record id="visit_report_wizard_doctor_action"
-            model="ir.actions.act_window">
-        <field name="name">Звіт по візитах</field>
+    <record id="visit_report_wizard_doctor_action" model="ir.actions.act_window">
+        <field name="name">Visit Report</field>
         <field name="res_model">visit.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="visit_report_wizard_view_form"/>
