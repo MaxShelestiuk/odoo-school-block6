@@ -5,6 +5,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                        <field name="user_id"/>
                         <field name="phone" widget="phone"/>
             </list>
         </field>

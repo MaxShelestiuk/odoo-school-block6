@@ -100,6 +100,8 @@ class HrHospitalPatientVisit(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _unlink_if_completed(self):
+        if self.env.user.has_group('hr_hospital.group_hospital_admin'):
+            return
         if any(visit.state == 'done' for visit in self):
             raise UserError(
                 'Не можна видаляти завершений візит.'

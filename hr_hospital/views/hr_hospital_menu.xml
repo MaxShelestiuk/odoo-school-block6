@@ -1,5 +1,5 @@
 <odoo>
-    <menuitem id="hr_hospital_main_menu"
+    <menuitem id="hr_hospital_main_menu" groups="hr_hospital.group_hospital_patient"
               name="Hospital"
               sequence="300"/>
 

@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+<record id="user_hospital_patient" model="res.users"><field name="name">Hospital Patient</field><field name="login">hospital.patient</field><field name="group_ids" eval="[Command.set([ref('base.group_user'), ref('group_hospital_patient')])]"/></record>
+<record id="hr_hospital_patient_demo_1" model="hr.hospital.patient"><field name="user_id" ref="user_hospital_patient"/></record>
+<record id="user_hospital_intern" model="res.users"><field name="name">Hospital Intern</field><field name="login">hospital.intern</field><field name="group_ids" eval="[Command.set([ref('base.group_user'), ref('group_hospital_intern')])]"/></record>
+<record id="hr_hospital_doctor_demo_2" model="hr.hospital.doctor"><field name="user_id" ref="user_hospital_intern"/></record>
+<record id="user_hospital_doctor" model="res.users"><field name="name">Hospital Doctor</field><field name="login">hospital.doctor</field><field name="group_ids" eval="[Command.set([ref('base.group_user'), ref('group_hospital_doctor')])]"/></record>
+<record id="hr_hospital_doctor_demo_1" model="hr.hospital.doctor"><field name="user_id" ref="user_hospital_doctor"/></record>
+<record id="user_hospital_manager" model="res.users"><field name="name">Hospital Manager</field><field name="login">hospital.manager</field><field name="group_ids" eval="[Command.set([ref('base.group_user'), ref('group_hospital_manager')])]"/></record>
+<record id="doctor_demo_manager" model="hr.hospital.doctor"><field name="name">Hospital Manager</field><field name="user_id" ref="user_hospital_manager"/></record>
+<record id="user_hospital_admin" model="res.users"><field name="name">Hospital Admin</field><field name="login">hospital.admin</field><field name="group_ids" eval="[Command.set([ref('base.group_user'), ref('group_hospital_admin')])]"/></record>
+<record id="doctor_demo_admin" model="hr.hospital.doctor"><field name="name">Hospital Admin</field><field name="user_id" ref="user_hospital_admin"/></record>
+</odoo>
