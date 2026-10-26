@@ -16,7 +16,7 @@ spaces are not canonicalized; this module does not validate email syntax.
 Installation
 ------------
 
-Copy ``partner_email_unique`` into an Odoo 19 addons directory, update the
+Copy ``msh_partner_email_unique`` into an Odoo 19 addons directory, update the
 Apps list and install Unique Partner Email. Only ``base`` is required.
 Existing duplicates cause a clear installation error before index creation.
 Review and merge/correct duplicate contacts first; the addon never merges or
@@ -29,8 +29,8 @@ Testing
 
 Use an isolated database::
 
-    odoo-bin -d email_test -i partner_email_unique --test-enable \
-      --test-tags=/partner_email_unique --stop-after-init --no-http
+    odoo-bin -d email_test -i msh_partner_email_unique --test-enable \
+      --test-tags=/msh_partner_email_unique --stop-after-init --no-http
 
 Tests cover empty addresses, case/space normalization, archived contacts,
 batch creation, update and CSV import through the ORM loader. To check the
